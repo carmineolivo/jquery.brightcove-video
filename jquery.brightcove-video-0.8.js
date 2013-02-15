@@ -41,8 +41,19 @@ var
 			}, options );
 
 			if ( typeof brightcove == "undefined" ) {
-				//$.error( "BrightcoveExperiences non found. (http://admin.brightcove.com/js/BrightcoveExperiences.js)" );
-				//@TODO load Brightcove Experience
+				$
+					.ajax( {
+							url: "http://admin.brightcove.com/js/BrightcoveExperiences.js",
+							dataType: "script",
+							cache: true
+						} )
+					.done( function(script, textStatus) {
+							brightcoveVideo.init( options, createExperiences );
+						} )
+					.fail( function(jqxhr, settings, exception) {
+							$.error( "Failed to load BrightcoveExperiences. (http://admin.brightcove.com/js/BrightcoveExperiences.js)" );
+						} )
+				;
 				return this;
 			}
 
