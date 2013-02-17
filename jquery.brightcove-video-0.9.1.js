@@ -1,5 +1,5 @@
 /**
- * jquery.brightcove-video v0.9 (Feb 2013)
+ * jquery.brightcove-video v0.9.1 (Feb 2013)
  * Helps you create custom dynamic solutions that work with the Brightcove Video platform.
  * Copyright © 2013 Carmine Olivo (carmineolivo@gmail.com)
  * Released under the (http://co.mit-license.org/) MIT license
