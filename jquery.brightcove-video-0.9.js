@@ -19,7 +19,11 @@ var
 	brightcoveVideo = {
 
 		init: function( options, createExperiences ) {
-			var params = $.extend( {
+			var $that = this,
+			    usrTemplateLoadHandler,
+			    usrTemplateReadyHandler,
+			    playerObject,
+			    params = $.extend( {
 						experienceID: null,
 						playerID: null,
 						playerKey: null,
@@ -38,8 +42,7 @@ var
 						templateErrorHandler: null,
 						url: null,
 						autoStart: false
-					}, options ),
-			    $that = this;
+					}, options );
 
 			if ( typeof brightcove == "undefined" ) {
 				$
@@ -70,11 +73,6 @@ var
 				if ( ! $experience.length )
 					return;
 
-				while ( ! data && ! $container.is( 'body' ) ) {
-					$container = $container.parent( );
-					data = $container.data( 'brightcoveVideo' );
-				}
-
 				data.experienceID = experienceID;
 				data.player = brightcove.api.getExperience(experienceID);
 				if ( data.player ) {
@@ -86,7 +84,7 @@ var
 				data.videoPlayer = data.player.getModule( brightcove.api.modules.APIModules.VIDEO_PLAYER );
 				data.experience = data.player.getModule( brightcove.api.modules.APIModules.EXPERIENCE );
 
-				if ( data.usrTemplateLoadHandler != null ) {
+				if ( data.usrTemplateReadyHandler != null ) {
 					$container.brightcoveVideo( "onExperienceEvent", "TEMPLATE_READY", function( event ) {
 							data.usrTemplateReadyHandler.call( $container.get()[0], event );
 						} );
@@ -97,24 +95,18 @@ var
 				}
 			};
 
-			return this.each( function() {
-				var playerObject,
-				    usrTemplateLoadHandler,
-				    usrTemplateReadyHandler,
-				    $container = $( this ),
+			usrTemplateLoadHandler = params.templateLoadHandler;
+			usrTemplateReadyHandler = params.templateReadyHandler;
+			params.templateLoadHandler = "brightcove.pluginData.onTemplateLoad";
+			params.templateReadyHandler = null;
+			params.autoStart = Boolean( params.autoStart );
+
+			this.each( function() {
+				var $container = $( this ),
 					data = $container.data( "brightcoveVideo" );
 
 				// if the player hasn't been initialized yet
 				if ( ! data ) {
-
-					params.autoStart = Boolean( params.autoStart );
-
-					usrTemplateLoadHandler = params.templateLoadHandler;
-					usrTemplateReadyHandler = params.templateReadyHandler;
-
-					params.templateLoadHandler = "brightcove.pluginData.onTemplateLoad";
-					params.templateReadyHandler = null;
-
 					playerObject = createPlayerObject( params );
 
 					$container.data( "brightcoveVideo", {
@@ -125,11 +117,14 @@ var
 					} );
 
 					$container.html( playerObject );
-					if ( typeof createExperiences == "undefined" || createExperiences ) {
-						brightcoveVideo.createExperiences( );
-					}
 				}
 			} );
+
+			if ( typeof createExperiences == "undefined" || createExperiences ) {
+				brightcoveVideo.createExperiences( );
+			}
+
+			return this;
 		},
 
 		destroy: function() {
