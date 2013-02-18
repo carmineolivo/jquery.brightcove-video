@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>jQuery Brightcove Video Plugin - EXAMPLE</title>
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="jquery.brightcove-video-1.0.0.js"></script>
+</head>
+<body>
+	<div class="player"></div>
+	<script>
+$( function() {
+
+	// Initialize the jQuery Brightcove Video plugin
+	$( ".player" ).brightcoveVideo({
+		"playerID": "1925363807001",
+		"@videoPlayer": "1754276221001",
+		"height": 240,
+		"width": 320,
+		"templateReadyHandler": onTemplateReady
+	});
+
+	function onTemplateReady(event) {
+		var $player = $( this );
+
+		// On PLAY
+		$player.brightcoveVideo( "onMediaEvent", "PLAY", function(event) {
+			alert( "PLAY" );
+
+			// Pause the video after 3 seconds of play
+			setTimeout( function() {
+				$player.brightcoveVideo( "pause" );
+				alert( "pause" );
+			}, 3000 );
+		});
+	}
+} );
+	</script>
+</body>
+</html>
