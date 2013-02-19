@@ -1,5 +1,3 @@
-https://github.com/carmineolivo/jquery.brightcove-video/
-
 Brightcove Video
 ==================================================
 
