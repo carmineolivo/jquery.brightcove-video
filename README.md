@@ -8,9 +8,9 @@ Helps you create custom dynamic solutions that work with the Brightcove Video pl
 
 The Smart Player technology detects if the device supports Flash, then the player loads in Flash mode, or supports HTML5, then the player loads in HTML5 mode (for Apple iOS and Android OS devices).
 
-It also handles player events, including events triggered by viewer actions like play or pause. You can capture these events using simple event listeners.
+It handles player events, including events triggered by viewer actions like play or pause, and you can capture these events using simple event listeners.
 
-You can also add an overlay with your HTML content that is positioned directly on top of the video element.
+You can also add an overlay positioned directly on top of the video element with your custom HTML content.
 
 Initialization & Usage
 --------------------------------------

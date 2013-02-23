@@ -21,7 +21,7 @@
 	"bugs": "https://github.com/carmineolivo/jquery.brightcove-video/issues",
 	"homepage": "https://github.com/carmineolivo/jquery.brightcove-video",
 	"docs": "https://github.com/carmineolivo/jquery.brightcove-video/blob/master/README.md",
-	"download": "https://github.com/carmineolivo/jquery.brightcove-video/archive/1.0.0.zip", "version": "1.0.0",
+	"download": "https://github.com/carmineolivo/jquery.brightcove-video/archive/1.0.1.zip", "version": "1.0.1",
 	"dependencies": {
 		"jquery": ">=1.7"
 	}
