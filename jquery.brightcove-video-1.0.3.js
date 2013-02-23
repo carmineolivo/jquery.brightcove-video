@@ -1,5 +1,5 @@
 /**
- * jquery.brightcove-video v1.0.1 (Feb 2013)
+ * jquery.brightcove-video v1.0.3 (Feb 2013)
  * Helps you create custom dynamic solutions that work with the Brightcove Video platform.
  * Copyright © 2013 Carmine Olivo (carmineolivo@gmail.com)
  * Released under the (http://co.mit-license.org/) MIT license
@@ -250,6 +250,7 @@ var
 				if ( ! data.overlay ) {
 					$experience = $( '#' + data.experienceID );
 					position = $experience.position( );
+
 					$overlay = $( '<div />' )
 						.css({
 							position: "absolute",
@@ -262,7 +263,7 @@ var
 							border: $experience.css( "border" ),
 							borderColor: "transparent"
 						})
-						.html( html )
+						.append( html )
 						.appendTo( $this );
 
 					data.overlay = $overlay.get( )[ 0 ];
