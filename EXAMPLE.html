@@ -7,7 +7,7 @@
 	<script src="jquery.brightcove-video-1.0.1.js"></script>
 </head>
 <body>
-	<div class="player"></div>
+	<div class="player" style="height:240px; width:320px"></div>
 	<script>
 $( function() {
 
@@ -15,8 +15,6 @@ $( function() {
 	$( ".player" ).brightcoveVideo({
 		"playerID": "1925363807001",
 		"@videoPlayer": "1754276221001",
-		"height": 240,
-		"width": 320,
 		"templateReadyHandler": onTemplateReady
 	});
 

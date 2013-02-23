@@ -23,8 +23,6 @@ So to execute the desired action, bind a function to the `templateReadyHandler`.
 $('#player').brightcoveVideo({
 	'playerID': '1925363807001',
 	'@videoPlayer': '1754276221001',
-	'height': 240,
-	'width': 320,
 	'templateReadyHandler': onTemplateReady
 });
 
