@@ -18,10 +18,11 @@ $( function() {
 		"templateReadyHandler": onTemplateReady
 	});
 
+	// On TEMPLATE_READY (The player is ready for interaction through API)
 	function onTemplateReady(event) {
 		var $player = $( this );
 
-		// On PLAY
+		// On PLAY (The player has begun or resumed playback)
 		$player.brightcoveVideo( "onMediaEvent", "PLAY", function(event) {
 			alert( "PLAY" );
 
@@ -31,6 +32,10 @@ $( function() {
 				alert( "pause" );
 			}, 3000 );
 		});
+
+		// Append an image on top of the player, fading out on click
+		$player.brightcoveVideo( "overlay", "<img src='http://goo.gl/hR0kK'>" )
+			.on( "click", function() { $(this).fadeOut() } );
 	}
 } );
 	</script>

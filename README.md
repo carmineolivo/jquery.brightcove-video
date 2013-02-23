@@ -18,6 +18,8 @@ The video object is created from an HTML element container (for example a DIV el
 When the video object is ready, the `TEMPLATE_READY` event is triggered.
 So to execute the desired action, bind a function to the `templateReadyHandler`.
 
+[EXAMPLE.html](EXAMPLE.html)
+
 ```javascript
 // Initialize the jQuery Brightcove Video plugin
 $('#player').brightcoveVideo({
@@ -26,10 +28,11 @@ $('#player').brightcoveVideo({
 	'templateReadyHandler': onTemplateReady
 });
 
+// On TEMPLATE_READY (The player is ready for interaction through API)
 function onTemplateReady(event) {
 	var $player = $(this);
 
-	// On PLAY
+	// On PLAY (The player has begun or resumed playback)
 	$player.brightcoveVideo("onMediaEvent", "PLAY", function(event) {
 		alert("PLAY");
 
@@ -39,17 +42,21 @@ function onTemplateReady(event) {
 			alert("pause");
 		}, 3000);
 	});
+
+	// Append an image on top of the player, fading out on click
+	$player.brightcoveVideo( "overlay", "<img src='http://goo.gl/hR0kK'>" )
+		.on( "click", function() { $(this).fadeOut() } );
 }
 ```
 
 Requirements
 --------------------------------------
 The plugin requires
-* [jQuery 1.7.0+](http://jquery.com)
+* [jQuery 1.6+](http://jquery.com)
 
 Licensing
 --------------------------------------
 
-Copyright &copy; 2013 Carmine Olivo
+Copyright © 2013 Carmine Olivo
 
 Licensed under the [MIT license](http://co.mit-license.org/).
