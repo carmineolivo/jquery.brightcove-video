@@ -27,7 +27,9 @@ $('#player').brightcoveVideo({
 	'@videoPlayer': '1754276221001',
 	'templateReadyHandler': onTemplateReady
 });
+```
 
+```javascript
 // On TEMPLATE_READY (The player is ready for interaction through API)
 function onTemplateReady(event) {
 	var $player = $(this);
