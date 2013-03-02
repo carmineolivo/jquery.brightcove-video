@@ -1,43 +1,43 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+<head lang="en">
 	<title>jQuery Brightcove Video Plugin - EXAMPLE</title>
-	<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+	<meta charset="utf-8">
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script src="jquery.brightcove-video-1.0.3.js"></script>
+	<script src="jquery.brightcove-video.js"></script>
 </head>
 <body>
-	<div class="player" style="height:240px; width:320px"></div>
+	<div class="player" style="height:240px; width:320px;"></div>
 	<script>
-$( function() {
+	$( function() {
 
-	// Initialize the jQuery Brightcove Video plugin
-	$( ".player" ).brightcoveVideo({
-		"playerID": "1925363807001",
-		"@videoPlayer": "1754276221001",
-		"templateReadyHandler": onTemplateReady
-	});
-
-	// On TEMPLATE_READY (The player is ready for interaction through API)
-	function onTemplateReady(event) {
-		var $player = $( this );
-
-		// On PLAY (The player has begun or resumed playback)
-		$player.brightcoveVideo( "onMediaEvent", "PLAY", function(event) {
-			alert( "PLAY" );
-
-			// Pause the video after 3 seconds of play
-			setTimeout( function() {
-				$player.brightcoveVideo( "pause" );
-				alert( "pause" );
-			}, 3000 );
+		// Initialize the jQuery Brightcove Video plugin
+		$( ".player" ).brightcoveVideo({
+			"playerID": "1925363807001",
+			"@videoPlayer": "1754276221001",
+			"templateReadyHandler": onTemplateReady
 		});
 
-		// Append an image on top of the player, fading out on click
-		$player.brightcoveVideo( "overlay", "<img src='http://goo.gl/hR0kK'>" )
-			.on( "click", function() { $(this).fadeOut() } );
-	}
-} );
+		// On TEMPLATE_READY (The player is ready for interaction through API)
+		function onTemplateReady( event ) {
+			var $player = $( this );
+
+			// On PLAY (The player has begun or resumed playback)
+			$player.brightcoveVideo( "onMediaEvent", "PLAY", function(event) {
+				alert( "PLAY" );
+
+				// Pause after 3 seconds of play
+				setTimeout( function() {
+					$player.brightcoveVideo( "pause" );
+					alert( "pause" );
+				}, 3000 );
+			});
+
+			// Append an image on top of the player, fading out on click
+			$player.brightcoveVideo( "overlay", "<img src='http://goo.gl/hR0kK'>" )
+				.on( "click", function() { $(this).fadeOut() } );
+		}
+	} );
 	</script>
 </body>
 </html>
