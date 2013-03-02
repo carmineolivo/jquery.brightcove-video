@@ -1,6 +1,6 @@
 /**
- * jquery.brightcove-video v1.0.3 (Feb 2013)
- * Helps you create custom dynamic solutions that work with the Brightcove Video platform.
+ * jquery.brightcove-video v1.0.4 (Mar 2013)
+ * Helps you create custom dynamic solutions that work with the Brightcove Video platform
  * Copyright © 2013 Carmine Olivo (carmineolivo@gmail.com)
  * Released under the (http://co.mit-license.org/) MIT license
  *
@@ -24,10 +24,10 @@ var
 		/**
 		 *
 		 */
-		init: function( options, createExperiences ) {
+		init: function( options, createExperiences, debug ) {
 			var $that = this;
 
-			if ( typeof brightcove == "undefined" ) {
+			if ( typeof brightcove === "undefined" ) {
 				$
 					.ajax( {
 							url: "http://admin.brightcove.com/js/BrightcoveExperiences.js",
@@ -44,22 +44,23 @@ var
 				return this;
 			}
 
+			if ( typeof brightcove.JBVData === "undefined" ) {
+				brightcove.JBVData = {
+					onTemplateLoad: { },
+					onTemplateReady: { },
+					onTemplateError: { },
+					countPlayers: 0
+				}
+			}
+
 			this.each( function() {
 				var $container = $( this ),
 				    data = $container.data( "brightcoveVideo" ),
 				    usrTemplateLoadHandler,
 				    usrTemplateReadyHandler,
+				    usrTemplateErrorHandler,
 				    playerObject,
 				    params;
-
-				if ( typeof brightcove.pluginData == "undefined" ) {
-					brightcove.pluginData = { };
-				}
-				if ( typeof brightcove.pluginData.onTemplateLoad == "undefined" ) {
-					brightcove.pluginData.countPlayers = 0;
-					brightcove.pluginData.onTemplateLoad = { };
-					brightcove.pluginData.onTemplateReady = { };
-				}
 
 				// if the player hasn't been initialized yet
 				if ( ! data ) {
@@ -81,10 +82,10 @@ var
 							templateReadyHandler: null,
 							templateErrorHandler: null,
 							url: null,
-							autoStart: false
+							autoStart: null
 				    	}, options );
 
-					brightcove.pluginData.onTemplateLoad[ "player" + brightcove.pluginData.countPlayers ] = function( experienceID ) {
+					brightcove.JBVData.onTemplateLoad[ "player" + brightcove.JBVData.countPlayers ] = function( experienceID ) {
 						data.experienceID = experienceID;
 						data.player = brightcove.api.getExperience(experienceID);
 						if ( data.player ) {
@@ -98,33 +99,44 @@ var
 
 						$container.data( "brightcoveVideo", data );
 
-						if ( usrTemplateLoadHandler != null ) {
+						if ( usrTemplateLoadHandler ) {
 							usrTemplateLoadHandler.call( data.container, experienceID );
 						}
 					};
 
-					brightcove.pluginData.onTemplateReady[ "player" + brightcove.pluginData.countPlayers ] = function( event ) {
-						if ( usrTemplateReadyHandler != null ) {
+					brightcove.JBVData.onTemplateReady[ "player" + brightcove.JBVData.countPlayers ] = function( event ) {
+						if ( usrTemplateReadyHandler ) {
 							usrTemplateReadyHandler.call( data.container, event );
+						}
+					};
+
+					brightcove.JBVData.onTemplateError[ "player" + brightcove.JBVData.countPlayers ] = function( event ) {
+						if ( usrTemplateErrorHandler ) {
+							usrTemplateErrorHandler.call( data.container, event );
+						} else if ( debug && console && console.log ) {
+							var err = event.type + ": " + event.errorType + " (" + event.code + ") " + event.info;
+							console.log( err );
 						}
 					};
 
 					usrTemplateLoadHandler = params.templateLoadHandler;
 					usrTemplateReadyHandler = params.templateReadyHandler;
-					params.templateLoadHandler = "brightcove.pluginData.onTemplateLoad.player" + brightcove.pluginData.countPlayers;
-					params.templateReadyHandler = "brightcove.pluginData.onTemplateReady.player" + brightcove.pluginData.countPlayers;
+					usrTemplateErrorHandler = params.templateErrorHandler;
+					params.templateLoadHandler = "brightcove.JBVData.onTemplateLoad.player" + brightcove.JBVData.countPlayers;
+					params.templateReadyHandler = "brightcove.JBVData.onTemplateReady.player" + brightcove.JBVData.countPlayers;
+					params.templateErrorHandler = "brightcove.JBVData.onTemplateError.player" + brightcove.JBVData.countPlayers;
 					params.autoStart = Boolean( params.autoStart );
 
 					playerObject = createPlayerObject( params );
 
 					data = {
-						index: brightcove.pluginData.countPlayers++,
+						index: brightcove.JBVData.countPlayers++,
 						container: this,
 						playerObject: playerObject,
 						target: $container
 					};
 					$container.data( "brightcoveVideo", data );
-
+console.log( data.index );
 					$container.html( playerObject );
 				}
 			} );
