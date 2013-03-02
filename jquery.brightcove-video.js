@@ -136,7 +136,7 @@ var
 						target: $container
 					};
 					$container.data( "brightcoveVideo", data );
-console.log( data.index );
+
 					$container.html( playerObject );
 				}
 			} );
