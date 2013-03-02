@@ -18,11 +18,12 @@
 			"url": "http://co.mit-license.org/"
 		}
 	],
+	"dependencies": {
+		"jquery": ">=1.6"
+	},
 	"bugs": "https://github.com/carmineolivo/jquery.brightcove-video/issues",
 	"homepage": "https://github.com/carmineolivo/jquery.brightcove-video",
 	"docs": "https://github.com/carmineolivo/jquery.brightcove-video/blob/master/README.md#readme",
-	"download": "https://github.com/carmineolivo/jquery.brightcove-video/archive/1.0.4.zip", "version": "1.0.4",
-	"dependencies": {
-		"jquery": ">=1.6"
-	}
+	"download": "https://github.com/carmineolivo/jquery.brightcove-video/archive/1.0.4.zip",
+	"version": "1.0.4"
 }
