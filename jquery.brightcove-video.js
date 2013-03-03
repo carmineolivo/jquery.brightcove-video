@@ -29,17 +29,17 @@ var
 
 			if ( typeof brightcove === "undefined" ) {
 				$
-					.ajax( {
+					.ajax({
 							url: "http://admin.brightcove.com/js/BrightcoveExperiences.js",
 							dataType: "script",
 							cache: true
-						} )
-					.done( function(script, textStatus) {
+						})
+					.done(function(script, textStatus) {
 							brightcoveVideo.init.call( $that, options, createExperiences );
-						} )
-					.fail( function(jqxhr, settings, exception) {
+						})
+					.fail(function(jqxhr, settings, exception) {
 							$.error( "Failed to load BrightcoveExperiences. (http://admin.brightcove.com/js/BrightcoveExperiences.js)" );
-						} )
+						})
 				;
 				return this;
 			}
@@ -50,7 +50,7 @@ var
 					onTemplateReady: { },
 					onTemplateError: { },
 					countPlayers: 0
-				}
+				};
 			}
 
 			this.each( function() {
@@ -65,33 +65,35 @@ var
 				// if the player hasn't been initialized yet
 				if ( ! data ) {
 				    params = $.extend( {
+							/*
+							autoStart: null,
+							bgcolor: null,
+							dynamicStreaming: null,
 							experienceID: null,
+							height: null,
 							playerID: null,
 							playerKey: null,
-							"@videoPlayer": null,
-							height: null,
-							width: null,
-							wmode: "transparent",
-							bgcolor: "#FFFFFF",
-							isVid: true,
-							isUI: true,
-							dynamicStreaming: true,
 							secureConnections: null,
-							includeAPI: true,
+							templateErrorHandler: null,
 							templateLoadHandler: null,
 							templateReadyHandler: null,
-							templateErrorHandler: null,
 							url: null,
-							autoStart: null
+							"@videoPlayer": null,
+							width: null,
+							*/
+							includeAPI: true,
+							isUI: true,
+							isVid: true,
+							wmode: "transparent"
 				    	}, options );
 
 					brightcove.JBVData.onTemplateLoad[ "player" + brightcove.JBVData.countPlayers ] = function( experienceID ) {
 						data.experienceID = experienceID;
-						data.player = brightcove.api.getExperience(experienceID);
+						data.player = brightcove.api.getExperience( experienceID );
 						if ( data.player ) {
 							data.isSmartPlayer = true;
 						} else {
-							data.player = brightcove.getExperience(experienceID);
+							data.player = brightcove.getExperience( experienceID );
 							data.isSmartPlayer = false;
 						}
 						data.videoPlayer = data.player.getModule( brightcove.api.modules.APIModules.VIDEO_PLAYER );
@@ -125,7 +127,6 @@ var
 					params.templateLoadHandler = "brightcove.JBVData.onTemplateLoad.player" + brightcove.JBVData.countPlayers;
 					params.templateReadyHandler = "brightcove.JBVData.onTemplateReady.player" + brightcove.JBVData.countPlayers;
 					params.templateErrorHandler = "brightcove.JBVData.onTemplateError.player" + brightcove.JBVData.countPlayers;
-					params.autoStart = Boolean( params.autoStart );
 
 					playerObject = createPlayerObject( params );
 
@@ -192,7 +193,7 @@ var
 			return this.each( function() {
 				var data = $( this ).data( "brightcoveVideo" );
 				if ( data.isSmartPlayer ) {
-				   	data.videoPlayer.getIsPlaying( callback )
+				   	data.videoPlayer.getIsPlaying( callback );
 				} else {
 				   	callback.call( this, data.videoPlayer.isPlaying() );
 				}
@@ -331,7 +332,7 @@ var
 		var $player = $( '<object />' )
 				.attr( "class", "BrightcoveExperience" );
 
-		if ( params.experienceID !== null ) {
+		if ( params.experienceID != null ) {
 			$player.attr( "id", params.experienceID );
 		}
 
