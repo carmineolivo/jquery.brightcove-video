@@ -261,10 +261,10 @@ var
 				    $experience, position, $overlay;
 
 				if ( ! data.overlay ) {
-					$experience = $( '#' + data.experienceID );
+					$experience = $( "#" + data.experienceID );
 					position = $experience.position( );
 
-					$overlay = $( '<div />' )
+					$overlay = $( "<div />" )
 						.css({
 							position: "absolute",
 							top: position.top,
@@ -329,7 +329,7 @@ var
 	 *
 	 */
 	createPlayerObject = function( params ) {
-		var $player = $( '<object />' )
+		var $player = $( "<object />" )
 				.attr( "class", "BrightcoveExperience" );
 
 		if ( params.experienceID != null ) {
@@ -338,7 +338,7 @@ var
 
 		$.each( params, function( n, v ) {
 			if ( v !== null ) {
-				$( '<param />' ).prop({ name: n, value: v }).appendTo( $player );
+				$( "<param />" ).prop({ name: n, value: v }).appendTo( $player );
 			}
 		});
 
