@@ -157,7 +157,7 @@ var
 			return this.each( function() {
 				var $this = $( this ),
 				    data = $this.data( "brightcoveVideo" ),
-					playerObject = data.playerObject,
+					$experience = $( "#" + data.experienceID ),
 					isSmartPlayer = data.isSmartPlayer,
 					experience = data.experience,
 				    target = data.target;
@@ -166,7 +166,7 @@ var
 				$( window ).unbind( ".brightcoveVideo" );
 				$this.removeData( "brightcoveVideo" );
 				isSmartPlayer || experience.unload( );
-				playerObject.remove( );
+				$experience.remove( );
 				target.empty( );
 			} );
 
