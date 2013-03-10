@@ -157,9 +157,9 @@ var
 			return this.each( function() {
 				var $this = $( this ),
 				    data = $this.data( "brightcoveVideo" ),
-					$experience = $( "#" + data.experienceID ),
-					isSmartPlayer = data.isSmartPlayer,
-					experience = data.experience,
+				    $experience = $( "#" + data.experienceID ),
+				    isSmartPlayer = data.isSmartPlayer,
+				    experience = data.experience,
 				    target = data.target;
 
 				// Namespacing FTW :)
@@ -330,7 +330,7 @@ var
 	 */
 	createPlayerObject = function( params ) {
 		var $player = $( "<object />" )
-				.attr( "class", "BrightcoveExperience" );
+		    	.attr( "class", "BrightcoveExperience" );
 
 		if ( params.experienceID != null ) {
 			$player.attr( "id", params.experienceID );
