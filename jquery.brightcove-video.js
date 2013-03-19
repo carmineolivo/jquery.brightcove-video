@@ -35,10 +35,12 @@ var
 							cache: true
 						})
 					.done(function(script, textStatus) {
-							brightcoveVideo.init.call( $that, options, createExperiences );
+							brightcoveVideo.init.call( $that, options, createExperiences, debug );
 						})
 					.fail(function(jqxhr, settings, exception) {
-							$.error( "Failed to load BrightcoveExperiences. (http://admin.brightcove.com/js/BrightcoveExperiences.js)" );
+							if ( debug ) {
+								$.error( "Failed to load BrightcoveExperiences. (http://admin.brightcove.com/js/BrightcoveExperiences.js)" );
+							}
 						})
 				;
 				return this;
