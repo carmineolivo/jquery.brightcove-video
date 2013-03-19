@@ -35,12 +35,12 @@ function onTemplateReady( event ) {
 
 	// On PLAY (The player has begun or resumed playback)
 	$player.brightcoveVideo( "onMediaEvent", "PLAY", function(event) {
-		alert( "PLAY" );
+		alert( "Play" );
 
-		// Pause after 3 seconds of play
+		// Pause after 3 seconds
 		setTimeout( function() {
 			$player.brightcoveVideo( "pause" );
-			alert( "pause" );
+			alert( "Pause after 3 seconds" );
 		}, 3000 );
 	} );
 
