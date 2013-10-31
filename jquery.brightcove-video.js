@@ -324,6 +324,19 @@ var
 				$( this ).data( "brightcoveVideo" ).videoPlayer
 					.seek( time );
 			} );
+		},
+
+		/**
+		 * Sets the pixel dimensions for the experience.
+		 *
+		 * @param {number} pixel width to set the experience to
+		 * @param {number} pixel height to set the experience to
+		 */
+		setSize: function( width, height ) {
+			return this.each( function() {
+				$( this ).data( "brightcoveVideo" ).experience
+					.setSize( width, height );
+			} );
 		}
 	},
 
